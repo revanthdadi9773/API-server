@@ -1,0 +1,30 @@
+name: Deploy API to EC2
+
+on:
+  push:
+    branches:
+      - main  # Deploys when changes are pushed to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3  # Get the latest API code
+
+    - name: Setup SSH Connection
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Deploy API to EC2
+      run: |
+        ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+        cd /home/ubuntu/api  # Navigate to API directory
+        git pull origin main  # Pull latest code
+        npm install  # Install dependencies
+        pm2 restart api  # Restart API (if using PM2)
+        EOF
