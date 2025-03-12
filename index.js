@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const cors = require("cors");
 app.use(cors({ origin: "*" })); // Allow all origins
 
 app.get("/", (req, res) => {
