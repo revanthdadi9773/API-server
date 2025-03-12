@@ -20,4 +20,4 @@ jobs:
             cd /home/ubuntu/api
             git pull origin main
             npm install
-            node restart index.js
+            node index.js
