@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/ubuntu
-            scp -r -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ./api/* ubuntu@${{ secrets.EC2_HOST }}:/home/ubuntu/api/
+            scp -r -i ~/.ssh/id_rsa ./api/* ubuntu@${{ secrets.EC2_HOST }}:/home/ubuntu/api/
             cd /home/ubuntu/api
             npm install
             
