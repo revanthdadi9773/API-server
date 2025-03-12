@@ -17,7 +17,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/ubuntu/API-server
+            cd /home/ubuntu/api/API-server
             git pull origin main
             npm install
             pm2 restart index.js
