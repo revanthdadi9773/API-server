@@ -21,7 +21,7 @@ jobs:
             npm install
             
             if pm2 list | grep -q 'api'; then
-               pm2 restart api"
+               pm2 restart api
             else
                pm2 start npm --name "api" -- start
             fi
