@@ -10,6 +10,12 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v3
 
+      - name: Debug SSH Key
+        run: |
+              echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+              chmod 600 ~/.ssh/id_rsa
+              ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "echo 'SSH Connection Successful'"
+
       - name: deploy via ssh
         uses: appleboy/ssh-action@v0.1.6
         with:
