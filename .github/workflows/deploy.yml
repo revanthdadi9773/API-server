@@ -12,6 +12,7 @@ jobs:
 
       - name: Debug SSH Key
         run: |
+              mkdir -p ~/.ssh  # Ensure the .ssh directory exists
               echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
               chmod 600 ~/.ssh/id_rsa
               ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} "echo 'SSH Connection Successful'"
