@@ -18,6 +18,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/ubuntu/api
-            git pull origin main
             npm install
-            pm2 start index.js
+            
+            if pm2 list | grep -q 'api'; then
+               pm2 restart api"
+            else
+               pm2 start npm --name "api" -- start
+            fi
+
